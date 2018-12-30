@@ -1,0 +1,27 @@
+//onCreateを同じファイル内で2つ呼ぶのはダメ。 １つのonCreate内で２つのボタンに関する処理を書けば良いわけです。 
+
+public class MainActivity extends Activity implements View.OnClickListener{
+Button btn1,btn2;Intent int1,int2;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btn1 = (Button) findViewById(R.id.send_button);
+        btn1.setOnClickListener(this);
+        btn2 = (Button) findViewById(R.id.send_button2);
+        btn2.setOnClickListener(this);
+    }
+
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.send_button:
+                        int1 = new Intent(getApplication(), LoginActivity.class);
+                        startActivity(int1);
+                        break;
+                    case R.id.send_button2:
+                        int2 = new Intent(getApplication(), TestActivity.class);
+                        startActivity(int2);
+                        break;
+            }}}
