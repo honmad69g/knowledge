@@ -5,26 +5,22 @@ public class Main3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AssetManager assets = getResources().getAssets();
 
-        //Viewをのせる元になるレイアウトを配置
+        //元レイアウトを配置
         RelativeLayout mainLayout = new RelativeLayout(this);
-
-        //イメージビューの生成
+        //ビュー生成
         ImageView mainImage = new ImageView(this);
+        //画像取込➡︎トリミング設定
+        try (InputStream istream = assets.open("okinawa.jpg")){
+            BitmapRegionDecoder regionDecoder = BitmapRegionDecoder.newInstance(istream,false);
+            Rect rect = new Rect(200, 200, 600, 600);
+            Bitmap bitmap = regionDecoder.decodeRegion(rect, null);
+            mainImage.setImageBitmap(bitmap); } catch (Exception e) { e.printStackTrace(); }
 
-        //画像設定
-        try (InputStream istream = assets.open("mouth.png")){
-            Bitmap bitmap = BitmapFactory.decodeStream(istream);
-            mainImage.setImageBitmap(bitmap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //画像のサイズの設定（width,height=）
+        //画像サイズ設定（width,height）
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(100,150);
-        //表示座標の設定（x,y）
+        //画像表示位置設定（x,y）
         lp.leftMargin = 100; lp.topMargin = 250;
-
-        //画像の表示
+        //画像表示
         setContentView(mainLayout);
         mainLayout.addView(mainImage,lp);
 
