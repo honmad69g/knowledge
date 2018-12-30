@@ -1,0 +1,31 @@
+public class Main3Activity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        AssetManager assets = getResources().getAssets();
+
+        //Viewをのせる元になるレイアウトを配置
+        RelativeLayout mainLayout = new RelativeLayout(this);
+
+        //イメージビューの生成
+        ImageView mainImage = new ImageView(this);
+
+        //画像設定
+        try (InputStream istream = assets.open("mouth.png")){
+            Bitmap bitmap = BitmapFactory.decodeStream(istream);
+            mainImage.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //画像のサイズの設定（width,height=）
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(100,150);
+        //表示座標の設定（x,y）
+        lp.leftMargin = 100; lp.topMargin = 250;
+
+        //画像の表示
+        setContentView(mainLayout);
+        mainLayout.addView(mainImage,lp);
+
+    }}
